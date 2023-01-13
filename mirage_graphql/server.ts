@@ -1,4 +1,4 @@
-import {createServer, Server} from 'miragejs';
+import {Server, Model} from 'miragejs';
 import {createGraphQLHandler} from '@miragejs/graphql';
 
 export const graphQLSchema = `
@@ -14,14 +14,21 @@ type Query {
 `;
 
 export function makeServer({environment = 'development'} = {}) {
-  return createServer({
+  let server = new Server({
     environment,
+    models: {
+      country: Model,
+    },
+    seeds(s) {
+      s.create('country', {name: 'United States', code: 'US'} as any);
+      s.create('country', {name: 'Brazil', code: 'BRA'} as any);
+      s.create('country', {name: 'Argentina', code: 'ARG'} as any);
+    },
+
     routes() {
       const graphQLHandler = createGraphQLHandler(graphQLSchema, this.schema);
       this.post('https://countries.trevorblades.com/', graphQLHandler);
     },
-    seeds(server) {
-      server.create('country', {code: 'US', name: 'United States'} as any);
-    },
   });
+  return server;
 }

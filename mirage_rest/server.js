@@ -1,7 +1,6 @@
 import {Server, Model} from 'miragejs';
 
 export function makeServer({environment = 'development'} = {}) {
-  console.log(environment);
   let server = new Server({
     environment,
     models: {
@@ -15,7 +14,6 @@ export function makeServer({environment = 'development'} = {}) {
 
     routes() {
       this.get('/api/countries', schema => {
-        console.log('>>> get original');
         return schema.countries.all();
       });
     },
