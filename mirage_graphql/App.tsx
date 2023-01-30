@@ -34,7 +34,7 @@ export const GET_COUNTRIES = gql`
   }
 `;
 
-const ListComponent = () => {
+export const ListComponent = () => {
   const {loading, error, data} = useQuery(GET_COUNTRIES);
   console.log({loading, error: error?.message, data});
   if (loading) {
