@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'development') {
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: 'https://countries.trevorblades.com/',
+    uri: '/graphql',
     fetch,
   }),
 });
